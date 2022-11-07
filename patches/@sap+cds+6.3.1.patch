@@ -1,0 +1,13 @@
+diff --git a/node_modules/@sap/cds/libx/_runtime/fiori/generic/read.js b/node_modules/@sap/cds/libx/_runtime/fiori/generic/read.js
+index 70c0418..a9029c3 100644
+--- a/node_modules/@sap/cds/libx/_runtime/fiori/generic/read.js
++++ b/node_modules/@sap/cds/libx/_runtime/fiori/generic/read.js
+@@ -382,7 +382,7 @@ const _allActive = (req, columns) => {
+     xpr: [
+       'case',
+       'when',
+-      'drafts.DraftAdministrativeData_DraftUUID',
++      { ref: [ 'drafts', 'DraftAdministrativeData_DraftUUID' ] },
+       'IS NOT NULL',
+       'then',
+       'true',
