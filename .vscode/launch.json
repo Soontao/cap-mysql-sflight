@@ -7,7 +7,9 @@
     {
       "name": "cds run",
       "command": "npx cds run",
-      "env": {},
+      "env": {
+        "DEBUG": "sql"
+      },
       "type": "node-terminal",
       "request": "launch",
       "skipFiles": [
