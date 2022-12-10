@@ -112,7 +112,7 @@
   },
   "jest": {
     "testEnvironment": "node",
-    "testTimeout": 20000
+    "testTimeout": 60000
   },
   "sapux": [
     "app/travel_processor",
