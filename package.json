@@ -18,7 +18,7 @@
   "dependencies": {
     "@sap/cds": "6.3.2",
     "@sap/xssec": "^3.2.7",
-    "cds-mysql": "^6.3.6-0",
+    "cds-mysql": "^6.3.6-1",
     "express": "^4",
     "hdb": "^0.19.1",
     "passport": "^0.6.0"
