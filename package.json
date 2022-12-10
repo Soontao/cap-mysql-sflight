@@ -16,9 +16,9 @@
     "travel-analytics": "cds watch --open travel_analytics/webapp/index.html?sap-ui-xx-viewCache=false"
   },
   "dependencies": {
-    "@sap/cds": "6.3.1",
+    "@sap/cds": "6.3.2",
     "@sap/xssec": "^3.2.7",
-    "cds-mysql": "^6.3.4-0",
+    "cds-mysql": "^6.3.6-0",
     "express": "^4",
     "hdb": "^0.19.1",
     "passport": "^0.6.0"
