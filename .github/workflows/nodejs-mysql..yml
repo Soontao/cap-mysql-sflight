@@ -10,7 +10,7 @@ on:
     branches: [ main ]
 
 jobs:
-  build:
+  unit:
     runs-on: ubuntu-latest
 
     services:
@@ -47,6 +47,36 @@ jobs:
         CDS_REQUIRES_DB_CREDENTIALS_DATABASE: cds_admin
         CDS_REQUIRES_DB_CREDENTIALS_USER: cds_admin
         CDS_REQUIRES_DB_CREDENTIALS_PASSWORD: cds_admin
+
+  integration:
+    runs-on: ubuntu-latest
+
+    services:
+      mysql:
+        image: mariadb:10.9
+        env:
+          MYSQL_ALLOW_EMPTY_PASSWORD: yes
+        ports:
+          - 3306:3306
+        options: --health-cmd="mysqladmin ping" --health-interval=30s --health-timeout=5s --health-retries=10
+
+    strategy:
+      fail-fast: false
+      matrix:
+        node-version: [18.x]
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v2
+      with:
+        node-version: ${{ matrix.node-version }}
+    - run: npm ci
+
+    - name: setup mysql user
+      run: node ./docker/create_user.js
+
+    - run: npm run build --if-present
 
     - name: Run integration tests - Manage Travels
       working-directory: ./app/travel_processor
