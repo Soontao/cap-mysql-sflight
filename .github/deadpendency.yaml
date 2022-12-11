@@ -1,0 +1,4 @@
+ignore-failures:
+  javascript:
+    - chai-as-promised
+    - chai-subset

@@ -1,0 +1,58 @@
+# This workflow will do a clean install of node dependencies, build the source code and run tests across different versions of node
+# For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
+
+name: CDS MySQL CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    services:
+      mysql:
+        image: mariadb:10.9
+        env:
+          MYSQL_ALLOW_EMPTY_PASSWORD: yes
+        ports:
+          - 3306:3306
+        options: --health-cmd="mysqladmin ping" --health-interval=30s --health-timeout=5s --health-retries=10
+
+    strategy:
+      fail-fast: false
+      matrix:
+        node-version: [18.x]
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v2
+      with:
+        node-version: ${{ matrix.node-version }}
+    - run: npm ci
+    - run: npm run build --if-present
+    - run: npm run test -- --forceExit
+      env:
+        CI: true
+        CDS_REQUIRES_DB_CREDENTIALS_HOST: "127.0.0.1"
+        CDS_REQUIRES_DB_CREDENTIALS_PORT: 3306
+        CDS_REQUIRES_DB_CREDENTIALS_DATABASE: cds_admin
+        CDS_REQUIRES_DB_CREDENTIALS_USER: cds_admin
+        CDS_REQUIRES_DB_CREDENTIALS_PASSWORD: cds_admin
+
+    - name: Run integration tests - Manage Travels
+      working-directory: ./app/travel_processor
+      run: |
+        npm ci
+        npm run test:node -- --ci
+      env:
+        CI: true
+        CDS_REQUIRES_DB_CREDENTIALS_HOST: "127.0.0.1"
+        CDS_REQUIRES_DB_CREDENTIALS_PORT: 3306
+        CDS_REQUIRES_DB_CREDENTIALS_DATABASE: cds_admin
+        CDS_REQUIRES_DB_CREDENTIALS_USER: cds_admin
+        CDS_REQUIRES_DB_CREDENTIALS_PASSWORD: cds_admin
