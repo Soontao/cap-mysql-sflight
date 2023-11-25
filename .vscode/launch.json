@@ -5,8 +5,8 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "cds run",
-      "command": "npx cds run",
+      "name": "cds serve",
+      "command": "npx cds-serve",
       "type": "node-terminal",
       "request": "launch",
       "skipFiles": [
