@@ -1,3 +1,30 @@
+# CAP SFLIGHT App for `cds-mysql`
+
+## How to setup development
+
+NOTE: following instruction is only for local dev/demo
+
+```sh
+docker run --name mariadbtest -e MYSQL_ROOT_PASSWORD=mypass -p 33306:3306 -d docker.io/library/mariadb:10.8
+docker exec -i mariadbtest mysql -uroot -pmypass -e "
+  CREATE DATABASE IF NOT EXISTS cds_admin; 
+  CREATE USER IF NOT EXISTS 'cds_admin'@'%' IDENTIFIED BY 'cds_admin';
+  GRANT ALL PRIVILEGES ON *.* TO 'cds_admin'@'%' WITH GRANT OPTION;
+"
+```
+
+create `.env` file with content
+
+```sh
+CDS_REQUIRES_DB_CREDENTIALS_USER=cds_admin
+CDS_REQUIRES_DB_CREDENTIALS_PASSWORD=cds_admin
+CDS_REQUIRES_DB_CREDENTIALS_DATABASE=cds_admin
+CDS_REQUIRES_DB_CREDENTIALS_HOST=127.0.0.1
+CDS_REQUIRES_DB_CREDENTIALS_PORT=33306
+```
+
+---
+
 # Welcome to the CAP SFLIGHT App
 
 This is a sample app for the travel reference scenario, built with the [SAP Cloud Application Programming Model (CAP)](https://cap.cloud.sap) and [SAP Fiori Elements](https://experience.sap.com/fiori-design-web/smart-templates).
