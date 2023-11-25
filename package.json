@@ -45,9 +45,6 @@
       "db": {
         "kind": "mysql"
       },
-      "mysql": {
-        "impl": "cds-mysql"
-      },
       "[production]": {
         "auth": {
           "kind": "xsuaa"
