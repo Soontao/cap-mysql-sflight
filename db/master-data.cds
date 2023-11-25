@@ -7,6 +7,8 @@ using {
 
 namespace sap.fe.cap.travel;
 
+// ensure all masterdata entities are available to clients
+@cds.autoexpose @readonly
 aspect MasterData {}
 
 
@@ -107,9 +109,9 @@ entity TravelAgency : MasterData {
 
 entity SupplementType : sap.common.CodeList {
   key code : String(2) enum {
-        Beverage = 'BV';
-        Meal     = 'ML';
-        Luggage  = 'LU';
-        Extra    = 'EX';
-      };
+    Beverage = 'BV';
+    Meal     = 'ML';
+    Luggage  = 'LU';
+    Extra    = 'EX';
+  };
 }

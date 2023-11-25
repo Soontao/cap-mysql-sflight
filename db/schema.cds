@@ -77,21 +77,20 @@ entity BookingSupplement : managed {
 //
 
 entity BookingStatus : CodeList {
-  key code : String(2) enum {
-        New      = 'N';
-        Booked   = 'B';
-        Canceled = 'X';
-      };
+  key code : String(1) enum {
+    New      = 'N';
+    Booked   = 'B';
+    Canceled = 'X';
+  };
 };
 
 entity TravelStatus : CodeList {
-  key code                    : String(2) enum {
-        Open     = 'O';
-        Accepted = 'A';
-        Canceled = 'X';
-      } default 'O'; //> will be used for foreign keys as well
-      criticality             : Integer; //  2: yellow colour,  3: green colour, 0: unknown
-      fieldControl            : Integer @odata.Type : 'Edm.Byte'; // 1: #ReadOnly, 7: #Mandatory
-      createDeleteHidden      : Boolean;
-      insertDeleteRestriction : Boolean; // = NOT createDeleteHidden
+  key code : String(1) enum {
+    Open     = 'O';
+    Accepted = 'A';
+    Canceled = 'X';
+  } default 'O'; //> will be used for foreign keys as well
+  fieldControl: Integer @odata.Type:'Edm.Byte'; // 1: #ReadOnly, 7: #Mandatory
+  createDeleteHidden: Boolean;
+  insertDeleteRestriction: Boolean; // = NOT createDeleteHidden
 }
